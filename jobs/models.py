@@ -25,7 +25,7 @@ class Job(models.Model):
 class JobCredential(models.Model):
     username = models.CharField(max_length=512, blank=True, null=True)
     password = models.CharField(max_length=512, blank=True, null=True)
-    created_at = models.DateTimeField('Date created', auto_now_add=False, blank=False)
+    created_at = models.DateTimeField('Date created', auto_now_add=True, blank=False)
 
     def __unicode__(self):
         return "{} - {}".format(self.id, self.username)
@@ -42,7 +42,7 @@ class Schedule(models.Model):
     server = models.ForeignKey("servers.Server", blank=True, null=True)
     cron_string = models.CharField(max_length=64, blank=True, null=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=0)
-    scheduled = models.DateTimeField('Scheduled time', auto_now_add=True, blank=False)
+    scheduled = models.DateTimeField('Scheduled time', auto_now_add=False, blank=False)
 
     def __unicode__(self):
         return "{} - {} {} {} {} {}".format(self.id, self.job.command, self.scheduled,
