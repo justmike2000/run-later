@@ -25,7 +25,7 @@ class Job(models.Model):
 class JobCredential(models.Model):
     username = models.CharField(max_length=512, blank=True, null=True)
     password = models.CharField(max_length=512, blank=True, null=True)
-    created_at = models.DateTimeField('Date created', auto_now_add=True, blank=False)
+    created_at = models.DateTimeField('Date created', auto_now_add=False, blank=False)
 
     def __unicode__(self):
         return "{} - {}".format(self.id, self.username)
