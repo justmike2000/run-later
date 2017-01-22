@@ -16,8 +16,8 @@ class Command(BaseCommand):
         return stdin, stdout, stderr
 
     def handle(self, *args, **kwargs):
-       username = "michaelmileusnich"
-       password = "msPassword1"
+       username = ""
+       password = ""
 
        self.ssh = paramiko.SSHClient()
        self.ssh.set_missing_host_key_policy(
