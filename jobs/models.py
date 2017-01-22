@@ -15,6 +15,7 @@ class Job(models.Model):
     parameters = models.TextField(null=True, blank=True, help_text="URL params or STDIN")
     path = models.CharField(max_length=512, blank=True, null=True)
     credentials = models.ForeignKey("JobCredential", null=True, blank=True)
+    organization = models.ForeignKey("accounts.Organization")
 
     def __unicode__(self):
         return "{} - {} {} {}".format(self.id, self.description, self.created_at,
