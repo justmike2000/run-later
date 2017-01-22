@@ -42,10 +42,11 @@ class Schedule(models.Model):
     server = models.ForeignKey("servers.Server", blank=True, null=True)
     cron_string = models.CharField(max_length=64, blank=True, null=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=0)
+    scheduled = models.DateField('Scheduled time', auto_now_add=True, blank=False)
 
     def __unicode__(self):
-        return "{} - {} {} {}".format(self.id, self.job,
-                                   self.server, self.cron_string)
+        return "{} - {} {} {} {} {}".format(self.id, self.job.command, self.scheduled,
+                                            self.status, self.server, self.cron_string)
 
 
 class Run(models.Model):
