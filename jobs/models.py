@@ -31,12 +31,24 @@ class JobCredential(models.Model):
         return "{} - {}".format(self.id, self.username)
 
 
+
+class Schedule(models.Model):
+    job = models.ForeignKey("Job")
+    server = models.ForeignKey("servers.Server", blank=True, null=True)
+    cron_string = models.CharField(max_length=64)
+
+    def __unicode__(self):
+        return "{} - {} {} {}".format(self.id, self.job,
+                                   self.server, self.cron_string)
+
+
 class Run(models.Model):
     description = models.CharField(max_length=512, blank=False)
     action = models.IntegerField(choices=Job.ACTION_CHOICES, blank=False,
                                  null=False, default=0)
     command = models.TextField(null=False, blank=False)
-    parameters = models.TextField(null=False, blank=False, help_text="URL params or STDIN")
+    parameters = models.TextField(null=False, blank=False,
+                                  help_text="URL params or STDIN")
     result = models.TextField(null=False, blank=False)
     path = models.CharField(max_length=512, blank=True, null=True)
     username = models.CharField(max_length=512, blank=True, null=True)
