@@ -31,15 +31,36 @@ class JobCredential(models.Model):
         return "{} - {}".format(self.id, self.username)
 
 
+
+class Schedule(models.Model):
+    STATUS_CHOICES = (
+        (0, 'PENDING'),
+        (1, 'RUNNING'),
+        (2, 'COMPLETED'),
+    )
+    job = models.ForeignKey("Job")
+    server = models.ForeignKey("servers.Server", blank=True, null=True)
+    cron_string = models.CharField(max_length=64, blank=True, null=True)
+    status = models.IntegerField(choices=STATUS_CHOICES, default=0)
+    scheduled = models.DateTimeField('Scheduled time', auto_now_add=False, blank=False)
+
+    def __unicode__(self):
+        return "{} - {} {} {} {} {}".format(self.id, self.job.command, self.scheduled,
+                                            self.status, self.server, self.cron_string)
+
+
 class Run(models.Model):
     description = models.CharField(max_length=512, blank=False)
     action = models.IntegerField(choices=Job.ACTION_CHOICES, blank=False,
                                  null=False, default=0)
     command = models.TextField(null=False, blank=False)
-    parameters = models.TextField(null=False, blank=False, help_text="URL params or STDIN")
+    parameters = models.TextField(null=False, blank=False,
+                                  help_text="URL params or STDIN")
     result = models.TextField(null=False, blank=False)
     path = models.CharField(max_length=512, blank=True, null=True)
     username = models.CharField(max_length=512, blank=True, null=True)
     created_at = models.DateTimeField('Date created', auto_now_add=True, blank=False)
+    return_code = models.IntegerField(default=-1)
+
     def __unicode__(self):
         return "{} {} {} {}".format(self.description, self.action, self.command, self.created_at)

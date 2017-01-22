@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Runlater</title>
+
+         <link rel="stylesheet" type="text/css" href="/static/style.css">
+    </head>
+
+    <body class="no_margins">
+
+        <div class="index_header">
+
+        <div class="left_box">
+             <h1>Runlater</h1>
+        </div>
+
+        <div class="right_box">
+            <a href="/doc/">Documentation</a>
+            &nbsp; - &nbsp;
+            <a href="/profile_user/">Profile</a>
+            &nbsp; - &nbsp;
+            <a href="/logout_user/">Logout</a>
+        </div>
+
+    </div>
+
+    <div class="nav left_box">
+        <a href="/dashboard/jobs/">Jobs</a><br/>
+        <a href="/dashboard/schedules/">Schedules</a><br/>
+        <a href="/dashboard/servers/">Servers</a>
+    </div>
+
+     <div class="left_box content">
+         {% block content %}{% endblock %}
+     </div>
+
+    </body>
+</html>

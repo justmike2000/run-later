@@ -1,0 +1,96 @@
+
+body {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 0.9em;
+}
+
+a {
+    color: #DDDDDD;
+}
+
+.no_margins {
+    margin: 0;
+}
+
+.index_header {
+    background-color: #192426;
+    color: #DDDDDD;
+    padding: 20px;
+    height: 60px;
+}
+
+.index_header a {
+    color: white;
+}
+
+.content {
+    margin-top: 50px;
+    width: 70%
+}
+
+
+.bglogo {
+    background-image: url("/static/main_image.jpg");
+    background-color: #222222;
+}
+
+.short_margins {
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.nav {
+    font-size: 1.6em;
+    line-height: 250%;
+    padding: 40px;
+    width: 15%;
+}
+
+.nav a{
+    color: #192426;
+}
+
+.info_box {
+    background-color: #192426;
+    color: #DDDDDD;
+    padding: 16px;
+    text-align: center;
+    line-height: 200%;
+}
+
+.login_box {
+    margin-top: 10%;
+    height: 300px;
+}
+
+.left_box {
+    float: left;
+}
+
+.right_box {
+    float: right;
+}
+
+.center_box {
+    clear: both;
+}
+
+input {
+    border: 1px solid #DDDDDD;
+    padding: 4px;
+}
+
+button {
+    border: 1px solid #DDDDDD;
+    padding: 4px;
+}
+
+.red {
+    color: red;
+}
+
+.dark {
+    background-color: #b3ff56;
+    padding: 8px;
+    border: 1px solid #DDDDDD;
+}

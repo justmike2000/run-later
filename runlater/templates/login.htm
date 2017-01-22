@@ -1,0 +1,29 @@
+
+<html>
+
+    <head>
+        <title>Runlater - Login</title>
+        <link rel="stylesheet" type="text/css" href="/static/style.css">
+    </head>
+
+    <body class="short_margins">
+
+        <div class="info_box login_box">
+
+            <h1>Runlater login</h1>
+
+            <form method="POST" action="/verify_login/">
+
+                {% csrf_token %}
+
+                Username <br/><input tabindex="1" type="text" name="username" autofocus></br/>
+                Password <br/><input tabindex="2" type="password" name="password"><br/>
+                <br/>
+                <input tabindex="3" type="submit" class="dark" value="Ok">
+            </form>
+
+    </div>
+
+    </body>
+
+</html>

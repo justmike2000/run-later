@@ -16,6 +16,20 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from . import views
+from jobs import views as job_views
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
+    url(r'^$', views.index),
+
+    url(r'^login_user/', views.login_user),
+    url(r'^verify_login/', views.verify_login),
+    url(r'^logout_user/', views.logout_user),
+
+    url(r'^dashboard/$', views.dashboard),
+    url(r'^dashboard/jobs/', views.jobs),
+
+    url(r'^api/jobs/', job_views.jobs),
 ]

@@ -28,6 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+WORKING_DIRECTORY = os.getcwd()
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -57,7 +59,7 @@ ROOT_URLCONF = 'runlater.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['{}/runlater/templates'.format(WORKING_DIRECTORY)],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,3 +123,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]

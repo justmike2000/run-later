@@ -9,6 +9,7 @@ class Account(models.Model):
     def __unicode__(self):
         return "{} - {} {}".format(self.id, self.user, self.organization)
 
+
 class Organization(models.Model):
     description = models.CharField(max_length=255)
 
