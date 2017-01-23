@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
-import subprocess
-
+import os
+import signal
 
 class Server(models.Model):
     hostname = models.CharField(max_length=255, blank=False, null=False)
@@ -10,15 +10,12 @@ class Server(models.Model):
     cert = models.TextField(blank=True, null=True)
 
     def start_server(self):
-        proc = subprocess.Popen(["/bin/sh", "-c", "./spawn_server.sh {}".format(self.id)],
-                                cwd=settings.WORKING_DIRECTORY)
-        try:
-            outs, errs = proc.communicate(timeout=15)
-            self = proc.pid
-            self.save()
-        except:
-            proc.kill()
-            outs, errs = proc.communicate()
+        self.pid = os.spawnlp(os.P_NOWAIT, "/bin/sh", "{}/spawn_server.sh {}".format(settings.WORKING_DIRECTORY,
+                                                                                           self.id))
+        self.save()
+
+    def kill_server(self):
+        os.kill(self.pid, signal.SIGTERM)
 
     def __unicode__(self):
         return "{} - {} {} {}".format(self.id,
