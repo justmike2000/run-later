@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 import subprocess
 
 
@@ -9,7 +10,8 @@ class Server(models.Model):
     cert = models.TextField(blank=True, null=True)
 
     def start_server(self):
-        proc = subprocess.Popen("sh spawnserver {}".format(self.id))
+        proc = subprocess.Popen("sh spawn_server.sh {}".format(settings.WORKING_DIRECTORY,
+                                                               self.id), cwd=settings.WORKING_DIRECTORY)
         try:
             outs, errs = proc.communicate(timeout=15)
             self = proc.pid

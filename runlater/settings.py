@@ -28,6 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+WORKING_DIRECTORY = os.getcwd()
+
+
 # Application definition
 
 INSTALLED_APPS = [
