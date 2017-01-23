@@ -16,7 +16,7 @@ class Server(models.Model):
             outs, errs = proc.communicate(timeout=15)
             self = proc.pid
             self.save()
-        except subprocess.TimeoutExpired:
+        except:
             proc.kill()
             outs, errs = proc.communicate()
 
