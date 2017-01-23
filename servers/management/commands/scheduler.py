@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from jobs.models import Job, Run
+from jobs.models import Job, Run, Schedule
 from servers.models import Server
 
 import paramiko
@@ -13,15 +13,27 @@ class Command(BaseCommand):
         parser.add_argument('server_id', nargs='+', type=int)
 
     def run_job(self, command):
-        return 0, "Output"
-        #stdin, stdout, stderr  = self.ssh.exec_command("ls -al")
-        #return stdin, stdout, stderr
+        chan = self.ssh.get_transport().open_session()
+        chan.exec_command(command)
+        return_code = chan.recv_exit_status()
+        print command, return_code
 
     def connect(self, username, password, host):
         self.ssh = paramiko.SSHClient()
         self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        self.ssh.connect('localhost', username=username,
+        self.ssh.connect(host,
+                         username=username,
                          password=password)
+
+    def log_job(self, job):
+        log = Run.objects.create(description=job.description,
+                                 action=job.action,
+                                 command=job.command,
+                                 parameters=job.parameters,
+                                 path=job.path,
+                                 return_code=0,
+                                 result=data)
+        return log
 
     def handle(self, *args, **kwargs):
         server_id = kwargs['server_id'][0]
@@ -39,20 +51,12 @@ class Command(BaseCommand):
             raise Exception("Invalid Credentials {}".format(server_id))
 
         while 1:
-            pass
-        while 1:
-           jobs = Job.objects.all()
+            schedules = Schedule.objects.filter(server=server)
 
-           for job in jobs:
-               return_code, output = self.run_job(job.command)
+            for schedule in schedules:
+                self.run_job(schedule.job.command)
 
-               run = Run.objects.create(description=job.description,
-                                        action=job.action,
-                                        command=job.command,
-                                        parameters=job.parameters,
-                                        path=job.path,
-                                        return_code=eturn_code,
-                                        result=data)
-               print run.created_at, ":", job.command
+                #log = self.log_job(schedule.job)
+                #print log.created_at, ":", schedule.job.command
 
-           sleep(1)
+            sleep(1)
