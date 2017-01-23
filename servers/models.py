@@ -1,4 +1,5 @@
 from django.db import models
+import subprocess
 
 
 class Server(models.Model):
@@ -6,6 +7,16 @@ class Server(models.Model):
     credential = models.ForeignKey("Credential")
     pid = models.CharField(max_length=255, blank=True, null=True)
     cert = models.TextField(blank=True, null=True)
+
+    def start_server(self):
+        proc = subprocess.Popen("sh spawnserver {}".format(self.id))
+        try:
+            outs, errs = proc.communicate(timeout=15)
+            self = proc.pid
+            self.save()
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            outs, errs = proc.communicate()
 
     def __unicode__(self):
         return "{} - {} {} {}".format(self.id,
