@@ -10,8 +10,8 @@ class Server(models.Model):
     cert = models.TextField(blank=True, null=True)
 
     def start_server(self):
-        proc = subprocess.Popen("sh spawn_server.sh {}".format(settings.WORKING_DIRECTORY,
-                                                               self.id), cwd=settings.WORKING_DIRECTORY)
+        proc = subprocess.Popen(["/bin/sh", "-c", "./spawn_server.sh {}".format(self.id)],
+                                cwd=settings.WORKING_DIRECTORY)
         try:
             outs, errs = proc.communicate(timeout=15)
             self = proc.pid
