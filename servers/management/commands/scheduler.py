@@ -4,6 +4,7 @@ from servers.models import Server
 
 import paramiko
 from time import sleep
+import select
 
 
 class Command(BaseCommand):
@@ -20,8 +21,8 @@ class Command(BaseCommand):
 
         chan = client.get_transport().open_session()
         chan.exec_command(command)
-        return_code = chan.recv_exit_status()
-        print command, return_code
+        self.channels.append([schedule, chan])
+
 
     def connect(self, username, password, host):
         try:
@@ -44,7 +45,28 @@ class Command(BaseCommand):
                                  result=data)
         return log
 
+    def complete_jobs(self):
+        done_jobs = []
+
+        for instance in self.channels:
+            schedule, channel = instance
+
+            if channel.exit_status_ready():
+                print schedule.job, "Done!"
+                done_jobs.append(instance)
+
+            r, w, x = select.select([channel], [], [])
+            if len(r) > 0:
+                print channel.recv(1024)
+
+        for done_job in done_jobs:
+            self.channels.remove(done_job)
+
+
     def handle(self, *args, **kwargs):
+
+        self.channels = []
+
         server_id = kwargs['server_id'][0]
 
         try:
@@ -52,13 +74,13 @@ class Command(BaseCommand):
         except Server.DoesNotExist:
             raise Exception("Server Not Defined {}".format(server_id))
 
+        schedules = Schedule.objects.filter(server=server)
+        for schedule in schedules:
+           self.run_job(schedule)
+
         while 1:
-            schedules = Schedule.objects.filter(server=server)
 
-            for schedule in schedules:
-                self.run_job(schedule)
+            self.complete_jobs()
 
-                #log = self.log_job(schedule.job)
-                #print log.created_at, ":", schedule.job.command
-
-            sleep(1)
+            #log = self.log_job(schedule.job)
+            #print log.created_at, ":", schedule.job.command
