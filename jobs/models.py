@@ -60,5 +60,7 @@ class Run(models.Model):
     path = models.CharField(max_length=512, blank=True, null=True)
     username = models.CharField(max_length=512, blank=True, null=True)
     created_at = models.DateTimeField('Date created', auto_now_add=True, blank=False)
+    return_code = models.IntegerField(default=-1)
+
     def __unicode__(self):
         return "{} {} {} {}".format(self.description, self.action, self.command, self.created_at)

@@ -14,54 +14,60 @@ class Command(BaseCommand):
         parser.add_argument('server_id', nargs='+', type=int)
 
     def run_job(self, schedule):
-        client = self.connect(schedule.server.credential.username,
-                              schedule.server.credential.password,
-                              schedule.server.hostname)
         command = schedule.job.command
-
-        chan = client.get_transport().open_session()
-        chan.exec_command(command)
-        self.channels.append([schedule, chan])
+        #channel = self.client.get_transport().open_session()
+        stdin, stdout, stderr = self.client.exec_command(command)
+        self.channels.append([schedule, stdout])
 
 
     def connect(self, username, password, host):
         try:
-            client = paramiko.SSHClient()
-            client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            client.connect(host,
-                           username=username,
-                           password=password)
-            return client
+            self.client = paramiko.SSHClient()
+            self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            self.client.connect(host,
+                                username=username,
+                                password=password)
         except paramiko.ssh_exception.BadAuthenticationType:
             raise Exception("Invalid Credentials {}".format(server_id))
 
-    def log_job(self, job):
+    def log_job(self, job, return_code, output=None):
         log = Run.objects.create(description=job.description,
                                  action=job.action,
                                  command=job.command,
                                  parameters=job.parameters,
                                  path=job.path,
-                                 return_code=0,
-                                 result=data)
+                                 return_code=return_code,
+                                 result=output)
         return log
+
+    def complete_job(self, schedule, return_code, output):
+        schedule.status = 2
+        schedule.save()
+        log = self.log_job(schedule.job, return_code, output)
+        print schedule.job, "Done!"
 
     def complete_jobs(self):
         done_jobs = []
 
         for instance in self.channels:
-            schedule, channel = instance
+            schedule, stdout = instance
 
-            if channel.exit_status_ready():
-                print schedule.job, "Done!"
+            return_code = stdout.channel.exit_status_ready()
+            if return_code:
+                output = stdout.read()
+                self.complete_job(schedule, return_code, output)
                 done_jobs.append(instance)
-
-            r, w, x = select.select([channel], [], [])
-            if len(r) > 0:
-                print channel.recv(1024)
 
         for done_job in done_jobs:
             self.channels.remove(done_job)
 
+
+    def get_schedules(self, server):
+        schedules = Schedule.objects.filter(server=server, status=0)
+        for schedule in schedules:
+            schedule.status = 1
+            schedule.save()
+        return schedules
 
     def handle(self, *args, **kwargs):
 
@@ -74,13 +80,16 @@ class Command(BaseCommand):
         except Server.DoesNotExist:
             raise Exception("Server Not Defined {}".format(server_id))
 
-        schedules = Schedule.objects.filter(server=server)
-        for schedule in schedules:
-           self.run_job(schedule)
+        self.connect(server.credential.username,
+                     server.credential.password,
+                     server.hostname)
 
         while 1:
+            schedules = self.get_schedules(server)
+            for schedule in schedules:
+                self.run_job(schedule)
 
             self.complete_jobs()
 
-            #log = self.log_job(schedule.job)
-            #print log.created_at, ":", schedule.job.command
+            sleep(1)
+
