@@ -30,7 +30,6 @@ ALLOWED_HOSTS = []
 
 WORKING_DIRECTORY = os.getcwd()
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -60,7 +59,7 @@ ROOT_URLCONF = 'runlater.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['{}/runlater/templates'.format(WORKING_DIRECTORY)],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
