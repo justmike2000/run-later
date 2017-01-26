@@ -1,0 +1,30 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <button>Add Job</button>
+
+    <br><br>
+
+    <table>
+
+    <tr>
+
+        {% for job in jobs %}
+
+            <td>{{ job.id }}</td>
+            <td>{{ job.description }}</td>
+            <td>{{ job.created_at }}</td>
+            <td>{{ job.action }}</td>
+            <td>{{ job.command }}</td>
+
+
+        {% endfor %}
+
+    </tr>
+
+    </table>
+
+
+{% endblock %}

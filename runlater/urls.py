@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^login_user/', views.login_user),
     url(r'^verify_login/', views.verify_login),
-    url(r'^dashboard/', views.dashboard),
+    url(r'^dashboard/$', views.dashboard),
+    url(r'^dashboard/jobs/', views.jobs),
     url(r'^logout_user/', views.logout_user),
 ]

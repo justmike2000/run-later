@@ -80,6 +80,11 @@ input {
     padding: 4px;
 }
 
+button {
+    border: 1px solid #DDDDDD;
+    padding: 4px;
+}
+
 .red {
     color: red;
 }

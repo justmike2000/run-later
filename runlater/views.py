@@ -2,10 +2,24 @@ from django.contrib.auth import authenticate, logout, login
 from django.shortcuts import render, HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
+from accounts.models import Account
+from jobs.models import Job
 
 
 def index(request):
     return render(request, 'index.htm', {})
+
+
+@login_required(login_url="/login/")
+def jobs(request):
+    org = Account.objects.get(user=request.user).organization
+
+    if not org:
+        return render(request, 'dashboard.htm', {})
+
+    jobs = Job.objects.filter(organization=org)
+
+    return render(request, 'jobs.htm', {'jobs': jobs})
 
 
 @login_required(login_url="/login/")
