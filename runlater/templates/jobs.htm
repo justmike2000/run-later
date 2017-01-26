@@ -3,27 +3,68 @@
 
 {% block content %}
 
-    <button>Add Job</button>
+    <button>Add Job</button> <input type="text" name="page"> of page {{ max_pages }}
 
     <br><br>
 
-    <table cellpadding="30px" cellspacing="2px">
-
-        {% for job in jobs %}
-            <tr>
-
-                <td>{{ job.id }}</td>
-                <td>{{ job.description }}</td>
-                <td>{{ job.created_at }}</td>
-                <td>{{ job.action }}</td>
-                <td>{{ job.command }}</td>
-
-            </tr>
-
-        {% endfor %}
-
-
+    <table cellpadding="10px;" border="0" id="jobs" border='1'>
+        <thead>
+            <th>ID</th>
+            <th>TYPE</th>
+            <th>COMMAND</th>
+            <th>CREATED</th>
+            <th>DESCRIPTION</th>
+            <th>PATH</th>
+            <th>PARAMETERS</th>
+        </thead>
     </table>
+
+    <script>
+
+$(document).ready(function(){
+
+    jQuery.support.cors = true;
+
+    $.ajax(
+    {
+        type: "POST",
+        url: '/api/jobs/',
+        data: "{}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+
+            action_mapper = {'0': 'ssh',
+                             '1': 'http',
+                             '2': 'agent'}
+
+            var trHTML = '';
+
+            $.each(data, function (i, item) {
+                trHTML += '<tr>' ;
+                trHTML += '<td>' + item.pk;
+                trHTML += '<td>' + action_mapper[item.fields.action];
+                trHTML += '<td>' + item.fields.command;
+                trHTML += '<td>' + item.fields.created_at;
+                trHTML += '<td>' + item.fields.description;
+                trHTML += '<td>' + item.fields.path;
+                trHTML += '<td>' + item.fields.parameters;
+                trHTML += '</tr>' ;
+            });
+
+            $('#jobs').append(trHTML);
+
+        },
+
+        error: function (msg) {
+
+            alert(msg.responseText);
+        }
+    });
+})
+
+</script>
 
 
 {% endblock %}

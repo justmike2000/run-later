@@ -17,9 +17,9 @@ def jobs(request):
     if not org:
         return render(request, 'dashboard.htm', {})
 
-    jobs = Job.objects.filter(organization=org)
+    pages = int(Job.objects.filter(organization=org).count() / 100) + 1
 
-    return render(request, 'jobs.htm', {'jobs': jobs})
+    return render(request, 'jobs.htm', {'max_pages': pages})
 
 
 @login_required(login_url="/login/")

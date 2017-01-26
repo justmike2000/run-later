@@ -94,3 +94,11 @@ button {
     padding: 8px;
     border: 1px solid #DDDDDD;
 }
+
+th {
+    text-align: left;
+}
+
+td {
+    text-align: left;
+}

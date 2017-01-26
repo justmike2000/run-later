@@ -15,8 +15,12 @@ from jobs.models import Job
 def jobs(request):
     org = Account.objects.get(user=request.user).organization
 
-    items_per_page = request.META.get('items', 100)
-    page = request.META.get('page', 1)
+    if request.method == "POST":
+        items_per_page = request.POST.get('items', 100)
+        page = request.POST.get('page', 1)
+    else:
+        items_per_page = request.GET.get('items', 100)
+        page = request.GET.get('page', 1)
 
     jobs = []
 
