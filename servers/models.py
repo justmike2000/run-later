@@ -4,10 +4,17 @@ import os
 import signal
 
 class Server(models.Model):
+    ACTION_CHOICES = (
+        (0, 'SSH'),
+        (1, 'HTTP'),
+        (2, 'AGENT'),
+    )
     hostname = models.CharField(max_length=255, blank=False, null=False)
     credential = models.ForeignKey("Credential")
     pid = models.CharField(max_length=255, blank=True, null=True)
     cert = models.TextField(blank=True, null=True)
+    type = models.IntegerField(choices=ACTION_CHOICES, null=False, blank=False)
+
 
     def start_server(self):
         self.pid = os.spawnlp(os.P_NOWAIT, "/bin/sh", "{}/spawn_server.sh {}".format(settings.WORKING_DIRECTORY,

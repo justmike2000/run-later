@@ -7,6 +7,7 @@ class Job(models.Model):
     ACTION_CHOICES = (
         (0, 'SSH'),
         (1, 'HTTP'),
+        (2, 'AGENT'),
     )
     description = models.CharField(max_length=512, blank=False)
     created_at = models.DateTimeField('Date created', auto_now_add=True, blank=False)
