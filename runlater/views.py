@@ -4,18 +4,26 @@ from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 
 
+def index(request):
+    return render(request, 'index.htm', {})
+
+
 @login_required(login_url="/login/")
 def dashboard(request):
     return render(request, 'dashboard.htm', {})
 
 
 def login_user(request):
+    if request.user and request.user.is_authenticated():
+        return HttpResponseRedirect("/dashboard/")
+
+
     return render(request, 'login.htm', {})
 
 
 def logout_user(request):
     logout(request)
-    return HttpResponseRedirect("/login_user/")
+    return HttpResponseRedirect("/")
 
 
 @require_http_methods(["POST"])

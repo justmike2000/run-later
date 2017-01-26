@@ -1,9 +1,32 @@
 
 body {
-    margin-left: 20%;
-    margin-right: 20%;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     font-size: 0.9em;
+}
+
+.no_margins {
+    margin: 0;
+}
+
+.index_header {
+    background-color: #222222;
+    color: #DDDDDD;
+    padding: 20px;
+    height: 80px;
+}
+
+.index_header a {
+    color: white;
+}
+
+.bglogo {
+    background-image: url("/static/main_image.jpg");
+    background-color: #222222;
+}
+
+.short_margins {
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 .info_box {
@@ -21,6 +44,10 @@ body {
 
 .left_box {
     float: left;
+}
+
+.right_box {
+    float: right;
 }
 
 .center_box {
