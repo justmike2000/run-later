@@ -6,5 +6,9 @@ def login(request):
     return render(request, 'login.htm', {})
 
 
+def error(request):
+    return render(request, 'error.htm', {})
+
+
 def verify_login(requst):
     return "DENIED!"

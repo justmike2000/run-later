@@ -32,6 +32,10 @@ input {
     padding: 4px;
 }
 
+.red {
+    color: red;
+}
+
 .dark {
     background-color: #b3ff56;
     padding: 8px;
