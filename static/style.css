@@ -1,0 +1,39 @@
+
+body {
+    margin-left: 20%;
+    margin-right: 20%;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 0.9em;
+}
+
+.info_box {
+    background-color: #192426;
+    color: #DDDDDD;
+    padding: 16px;
+    text-align: center;
+    line-height: 200%;
+}
+
+.login_box {
+    margin-top: 10%;
+    height: 300px;
+}
+
+.left_box {
+    float: left;
+}
+
+.center_box {
+    clear: both;
+}
+
+input {
+    border: 1px solid #DDDDDD;
+    padding: 4px;
+}
+
+.dark {
+    background-color: #b3ff56;
+    padding: 8px;
+    border: 1px solid #DDDDDD;
+}

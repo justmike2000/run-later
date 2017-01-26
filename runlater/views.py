@@ -4,3 +4,7 @@ from django.shortcuts import render
 
 def login(request):
     return render(request, 'login.htm', {})
+
+
+def verify_login(requst):
+    return "DENIED!"
