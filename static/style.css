@@ -23,6 +23,12 @@ a {
     color: white;
 }
 
+.content {
+    margin-top: 50px;
+    width: 70%
+}
+
+
 .bglogo {
     background-image: url("/static/main_image.jpg");
     background-color: #222222;
@@ -37,6 +43,7 @@ a {
     font-size: 1.6em;
     line-height: 250%;
     padding: 40px;
+    width: 15%;
 }
 
 .nav a{

@@ -16,6 +16,8 @@
         </div>
 
         <div class="right_box">
+            <a href="/doc/">Documentation</a>
+            &nbsp; - &nbsp;
             <a href="/profile_user/">Profile</a>
             &nbsp; - &nbsp;
             <a href="/logout_user/">Logout</a>
@@ -23,14 +25,15 @@
 
     </div>
 
-    <div class="nav">
+    <div class="nav left_box">
         <a href="/dashboard/jobs/">Jobs</a><br/>
         <a href="/dashboard/schedules/">Schedules</a><br/>
         <a href="/dashboard/servers/">Servers</a>
     </div>
 
-    {% block content %}{% endblock %}
-
+     <div class="left_box content">
+         {% block content %}{% endblock %}
+     </div>
 
     </body>
 </html>
