@@ -4,15 +4,19 @@ body {
     font-size: 0.9em;
 }
 
+a {
+    color: #DDDDDD;
+}
+
 .no_margins {
     margin: 0;
 }
 
 .index_header {
-    background-color: #222222;
+    background-color: #192426;
     color: #DDDDDD;
     padding: 20px;
-    height: 80px;
+    height: 60px;
 }
 
 .index_header a {
@@ -25,8 +29,18 @@ body {
 }
 
 .short_margins {
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.nav {
+    font-size: 1.6em;
+    line-height: 250%;
+    padding: 40px;
+}
+
+.nav a{
+    color: #192426;
 }
 
 .info_box {
