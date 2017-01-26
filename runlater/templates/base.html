@@ -7,13 +7,23 @@
          <link rel="stylesheet" type="text/css" href="/static/style.css">
     </head>
 
-    <body>
+    <body class="no_margins">
 
-    <h1>Runlater</h1>
+        <div class="index_header">
 
-        {% block content %}{% endblock %}
+        <div class="left_box">
+             <h1>Runlater</h1>
+        </div>
 
-    <br/>
+        <div class="right_box">
+            <a href="/logout_user/">Logout</a>
+        </div>
+
+    </div>
+
+
+    {% block content %}{% endblock %}
+
 
     Footer copyright 2017
 
