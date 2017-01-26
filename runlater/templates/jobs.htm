@@ -7,22 +7,21 @@
 
     <br><br>
 
-    <table>
-
-    <tr>
+    <table cellpadding="30px" cellspacing="2px">
 
         {% for job in jobs %}
+            <tr>
 
-            <td>{{ job.id }}</td>
-            <td>{{ job.description }}</td>
-            <td>{{ job.created_at }}</td>
-            <td>{{ job.action }}</td>
-            <td>{{ job.command }}</td>
+                <td>{{ job.id }}</td>
+                <td>{{ job.description }}</td>
+                <td>{{ job.created_at }}</td>
+                <td>{{ job.action }}</td>
+                <td>{{ job.command }}</td>
 
+            </tr>
 
         {% endfor %}
 
-    </tr>
 
     </table>
 
