@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <button>Add Job</button> Search: <input type="text" name="search">
+    <button>Add Job</button> Search: <input type="text" id="search" value="{{ search_term }}">
 
     <select id="job_page_selector">
         {% for page in pages %}
@@ -29,11 +29,14 @@
 
         $(document).ready(function(){
             $.getScript("/static/utils.js", function(){
-                load_jobs({'page': {{ current_page }}});
+                load_jobs({'search': '{{ search_term }}', 'page': {{ current_page }}});
             });
 
             $("#job_page_selector").change(function(val) {
-                window.location = '/dashboard/jobs/?page=' + val.currentTarget.value;
+                window.location = '/dashboard/jobs/?page=' + val.currentTarget.value + "&search={{ search_term }}";
+            });
+            $("#search").change(function(val) {
+                window.location = '/dashboard/jobs/?page={{ current_page }}&search=' + val.currentTarget.value + "#search";
             });
         });
 

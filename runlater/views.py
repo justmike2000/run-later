@@ -18,8 +18,10 @@ def jobs(request):
 
     if request.method == "POST":
         page = int(request.POST.get('page', 1))
+        search = request.POST.get('search', '')
     else:
         page = int(request.GET.get('page', 1))
+        search = request.GET.get('search', '')
 
     if not org:
         return render(request, 'dashboard.htm', {})
@@ -28,7 +30,7 @@ def jobs(request):
 
     pages = range(1, pages+1)
 
-    return render(request, 'jobs.htm', {'current_page': page, 'pages': pages})
+    return render(request, 'jobs.htm', {'search_term': search, 'current_page': page, 'pages': pages})
 
 
 @login_required(login_url="/login/")
