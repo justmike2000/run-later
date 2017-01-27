@@ -2,6 +2,8 @@ from django.contrib.auth import authenticate, logout, login
 from django.shortcuts import render, HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+
 from accounts.models import Account
 from jobs.models import Job
 
@@ -14,12 +16,19 @@ def index(request):
 def jobs(request):
     org = Account.objects.get(user=request.user).organization
 
+    if request.method == "POST":
+        page = int(request.POST.get('page', 1))
+    else:
+        page = int(request.GET.get('page', 1))
+
     if not org:
         return render(request, 'dashboard.htm', {})
 
-    pages = int(Job.objects.filter(organization=org).count() / 100) + 1
+    pages = int(Job.objects.filter(organization=org).count() / settings.MAX_PAGES) + 1
 
-    return render(request, 'jobs.htm', {'max_pages': pages})
+    pages = range(1, pages+1)
+
+    return render(request, 'jobs.htm', {'current_page': page, 'pages': pages})
 
 
 @login_required(login_url="/login/")

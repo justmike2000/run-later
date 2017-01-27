@@ -3,7 +3,13 @@
 
 {% block content %}
 
-    <button>Add Job</button> <input type="text" name="page"> of page {{ max_pages }}
+    <button>Add Job</button> Search: <input type="text" name="search">
+
+    <select id="job_page_selector">
+        {% for page in pages %}
+            <option value="{{ page }}" {% if page == current_page %} selected {% endif %} >{{ page }}</option>
+        {% endfor %}
+    </select> of page {{ pages|length }}
 
     <br><br>
 
@@ -21,50 +27,17 @@
 
     <script>
 
-$(document).ready(function(){
-
-    jQuery.support.cors = true;
-
-    $.ajax(
-    {
-        type: "POST",
-        url: '/api/jobs/',
-        data: "{}",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        cache: false,
-        success: function (data) {
-
-            action_mapper = {'0': 'ssh',
-                             '1': 'http',
-                             '2': 'agent'}
-
-            var trHTML = '';
-
-            $.each(data, function (i, item) {
-                trHTML += '<tr>' ;
-                trHTML += '<td>' + item.pk;
-                trHTML += '<td>' + action_mapper[item.fields.action];
-                trHTML += '<td>' + item.fields.command;
-                trHTML += '<td>' + item.fields.created_at;
-                trHTML += '<td>' + item.fields.description;
-                trHTML += '<td>' + item.fields.path;
-                trHTML += '<td>' + item.fields.parameters;
-                trHTML += '</tr>' ;
+        $(document).ready(function(){
+            $.getScript("/static/utils.js", function(){
+                load_jobs({'page': {{ current_page }}});
             });
 
-            $('#jobs').append(trHTML);
+            $("#job_page_selector").change(function(val) {
+                window.location = '/dashboard/jobs/?page=' + val.currentTarget.value;
+            });
+        });
 
-        },
-
-        error: function (msg) {
-
-            alert(msg.responseText);
-        }
-    });
-})
-
-</script>
+    </script>
 
 
 {% endblock %}
