@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.conf import settings
+from django.db.models import Q
 
 from runlater.utils import paginate_objects
 from accounts.models import Account
@@ -32,6 +33,14 @@ def jobs(request):
 
     if org:
         jobs = Job.objects.filter(organization=org)
+
+    if search:
+        jobs = jobs.filter(Q(command__contains=search) |
+                           Q(description__contains=search) |
+                           Q(path__contains=search) |
+                           Q(parameters__contains=search) |
+                           Q(action__contains=search) |
+                           Q(pk__contains=search))
 
     jobs = paginate_objects(jobs, items_per_page, page)
 
