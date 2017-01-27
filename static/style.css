@@ -8,6 +8,13 @@ a {
     color: #DDDDDD;
 }
 
+tr:nth-child(even) {background: #CCC}
+tr:nth-child(odd) {background: #FFF}
+
+tr:hover {
+    background-color: #b3ff56;
+}
+
 .no_margins {
     margin: 0;
 }
