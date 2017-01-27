@@ -8,6 +8,14 @@ a {
     color: #DDDDDD;
 }
 
+a:hover {
+    color: #b3ff56;
+}
+
+a:visited:hover {
+    color: #b3ff56;
+}
+
 tr:nth-child(even) {background: #CCC}
 tr:nth-child(odd) {background: #FFF}
 
