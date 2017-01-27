@@ -35,6 +35,7 @@ def jobs(request):
         jobs = Job.objects.filter(organization=org)
 
     if search:
+        print "SEARCH"
         jobs = jobs.filter(Q(command__contains=search) |
                            Q(description__contains=search) |
                            Q(path__contains=search) |

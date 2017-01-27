@@ -12,6 +12,10 @@ a {
     margin: 0;
 }
 
+.no_border {
+    border: 0;
+}
+
 .index_header {
     background-color: #192426;
     color: #DDDDDD;

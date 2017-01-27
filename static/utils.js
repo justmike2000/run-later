@@ -1,5 +1,5 @@
 
-function load_jobs(params) {
+function load_jobs(params, current_page) {
     jQuery.support.cors = true;
 
     $("#jobs").innerHTML = "";
@@ -12,7 +12,20 @@ function load_jobs(params) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         cache: false,
-        success: function (data) {
+        success: function (data, status, xhr) {
+
+            total_pages = xhr.getResponseHeader('total_pages');
+
+            $("#total_pages").val(total_pages);
+
+            for (i = 1; i <= total_pages; i++) {
+                if(i == current_page) {
+                    $("#page_selector").append("<option value=" + i + " selected>" + i + "</option>");
+                }
+                else {
+                    $("#page_selector").append("<option value=" + i + ">" + i + "</option>");
+                }
+            }
 
             action_mapper = {'0': 'ssh',
                              '1': 'http',
