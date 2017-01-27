@@ -44,6 +44,12 @@ def jobs(request):
 
     jobs = paginate_objects(jobs, items_per_page, page)
 
+    total_pages = (len(jobs) / settings.MAX_PAGES)
+
     data = serializers.serialize("json", jobs)
 
-    return HttpResponse(data)
+    response = HttpResponse(data)
+
+    response['total_pages'] = total_pages + 1
+
+    return response

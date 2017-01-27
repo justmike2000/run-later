@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 from accounts.models import Account
-from jobs.models import Job
 
 
 def index(request):
@@ -26,11 +25,9 @@ def jobs(request):
     if not org:
         return render(request, 'dashboard.htm', {})
 
-    pages = int(Job.objects.filter(organization=org).count() / settings.MAX_PAGES) + 1
-
-    pages = range(1, pages+1)
-
-    return render(request, 'jobs.htm', {'search_term': search, 'current_page': page, 'pages': pages})
+    return render(request, 'jobs.htm', {'search_term': search,
+                                        'max_pages': settings.MAX_PAGES,
+                                        'current_page': page})
 
 
 @login_required(login_url="/login/")
