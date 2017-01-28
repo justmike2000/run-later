@@ -13,6 +13,12 @@ Search: <input type="text" id="search" value="{{ search_term }}">
     <a id="next-link" href="/dashboard/{{ model }}/?search={{ search_term }}&page={{ current_page|add:1 }}">Next ></a>
 </div>
 
+<div id="dim_screen" class="dim_screen">
+    <img src="/static/ajax-loader.gif"/>
+</div>
+
 <script>
+    $(".dim_screen").hide();
     $("#next-link").hide();
 </script>
+

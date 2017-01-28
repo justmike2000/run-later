@@ -2,6 +2,8 @@
 function load_jobs(params, current_page) {
     jQuery.support.cors = true;
 
+    $(".dim_screen").show();
+
     $("#jobs").innerHTML = "";
 
     $.ajax(
@@ -13,6 +15,8 @@ function load_jobs(params, current_page) {
         dataType: "json",
         cache: false,
         success: function (data, status, xhr) {
+
+            $(".dim_screen").hide();
 
             total_pages = parseInt(xhr.getResponseHeader('total_pages')) + 1;
 
