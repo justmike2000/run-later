@@ -43,6 +43,7 @@ function load_jobs(params, current_page) {
             $.each(data, function (i, item) {
                 trHTML += '<tr>' ;
                 trHTML += '<td>' + '<input type="checkbox" id=job_' + item.pk  + '/>';
+                trHTML += '<td>' + item.pk;
                 trHTML += '<td>' + action_mapper[item.fields.action];
                 trHTML += '<td>' + item.fields.command;
                 trHTML += '<td>' + item.fields.created_at;
