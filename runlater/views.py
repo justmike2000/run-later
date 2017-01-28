@@ -12,7 +12,7 @@ def index(request):
     return render(request, 'index.htm', {})
 
 
-@login_required(login_url="/login/")
+@login_required(login_url="/login_user/")
 def jobs(request):
     org = Account.objects.get(user=request.user).organization
 
@@ -32,7 +32,7 @@ def jobs(request):
                                         'current_page': page})
 
 
-@login_required(login_url="/login/")
+@login_required(login_url="/login_user/")
 def job_details(request, num):
 
     try:
@@ -43,7 +43,7 @@ def job_details(request, num):
     return render(request, 'job_details.htm', {'job': job})
 
 
-@login_required(login_url="/login/")
+@login_required(login_url="/login_user/")
 def dashboard(request):
     return render(request, 'dashboard.htm', {})
 
