@@ -123,8 +123,9 @@ input {
 
 button {
     border: 1px solid #DDDDDD;
-    padding: 4px;
+    padding: 6px;
     background-color: #b3ff56;
+    font-size: 1.0em;
 }
 
 .red {
