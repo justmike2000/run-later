@@ -18,6 +18,10 @@ class Job(models.Model):
     credentials = models.ForeignKey("JobCredential", null=True, blank=True)
     organization = models.ForeignKey("accounts.Organization")
 
+    @property
+    def action_type(self):
+        return self.ACTION_CHOICES[self.action][1]
+
     def __unicode__(self):
         return "{} - {} {} {}".format(self.id, self.description, self.created_at,
                                       self.action)

@@ -3,5 +3,16 @@
 
 {% block content %}
 
+ID {{ job.pk }} <br/>
+Command {{ job.command }} <br/>
+Action {{ job.action_type }} <br/>
+Created At {{ job.created_at }} <br/>
+Parameters {{ job.parameters }} <br/>
+Path {{ job.path }} <br/>
+Credentials {{ job.credentials }} <br/>
+
+<br/>
+
+<button>Save</button> <button>Delete</button>
 
 {% endblock %}
