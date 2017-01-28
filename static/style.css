@@ -124,6 +124,7 @@ input {
 button {
     border: 1px solid #DDDDDD;
     padding: 4px;
+    background-color: #b3ff56;
 }
 
 .red {
