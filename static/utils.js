@@ -14,7 +14,7 @@ function load_jobs(params, current_page) {
         cache: false,
         success: function (data, status, xhr) {
 
-            total_pages = xhr.getResponseHeader('total_pages');
+            total_pages = parseInt(xhr.getResponseHeader('total_pages')) + 1;
 
             $("#total_pages").val(total_pages);
 

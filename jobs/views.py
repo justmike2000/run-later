@@ -34,6 +34,8 @@ def jobs(request):
     if org:
         jobs = Job.objects.filter(organization=org)
 
+    total_pages = (len(jobs) / settings.MAX_PAGES)
+
     if search:
         jobs = jobs.filter(Q(command__contains=search) |
                            Q(description__contains=search) |
@@ -44,12 +46,10 @@ def jobs(request):
 
     jobs = paginate_objects(jobs, items_per_page, page)
 
-    total_pages = (len(jobs) / settings.MAX_PAGES)
-
     data = serializers.serialize("json", jobs)
 
     response = HttpResponse(data)
 
-    response['total_pages'] = total_pages + 1
+    response['total_pages'] = total_pages
 
     return response
