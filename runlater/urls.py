@@ -29,7 +29,8 @@ urlpatterns = [
     url(r'^logout_user/', views.logout_user),
 
     url(r'^dashboard/$', views.dashboard),
-    url(r'^dashboard/jobs/', views.jobs),
+    url(r'^dashboard/jobs/$', views.jobs),
+    url(r'^dashboard/jobs/(\d+)/', views.job_details),
 
     url(r'^api/jobs/', job_views.jobs),
 ]

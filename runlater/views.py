@@ -1,10 +1,11 @@
 from django.contrib.auth import authenticate, logout, login
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, HttpResponse
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 from accounts.models import Account
+from jobs.models import Job
 
 
 def index(request):
@@ -29,6 +30,17 @@ def jobs(request):
                                         'search_term': search,
                                         'max_pages': settings.MAX_PAGES,
                                         'current_page': page})
+
+
+@login_required(login_url="/login/")
+def job_details(request, num):
+
+    try:
+        job = Job.objects.get(pk=num)
+    except Job.DoesNotExist:
+        return render(request, 'error.htm', {"message": "Job does not exist!"})
+
+    return render(request, 'job_details.htm', {'job': job})
 
 
 @login_required(login_url="/login/")

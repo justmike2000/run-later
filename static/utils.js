@@ -45,7 +45,7 @@ function load_jobs(params, current_page) {
             var trHTML = '';
 
             $.each(data, function (i, item) {
-                trHTML += '<tr>' ;
+                trHTML += '<tr id="jobs_item_' + item.pk + '" onclick="job_details(' + item.pk + ');">' ;
                 trHTML += '<td>' + '<input type="checkbox" id=job_' + item.pk  + '/>';
                 trHTML += '<td>' + item.pk;
                 trHTML += '<td>' + action_mapper[item.fields.action];
@@ -58,7 +58,6 @@ function load_jobs(params, current_page) {
             });
 
             $('#jobs').append(trHTML);
-
         },
 
         error: function (msg) {
@@ -66,4 +65,8 @@ function load_jobs(params, current_page) {
             alert(msg.responseText);
         }
     });
+}
+
+function job_details(job) {
+    window.location.href = '/dashboard/jobs/' + job + '/';
 }
