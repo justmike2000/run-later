@@ -39,7 +39,12 @@ table {
 .next_right a {
     color: #192426;
 }
-`
+
+th {
+    background-color: #192426;
+    color: #DDDDDD;
+}
+
 .no_margins {
     margin: 0;
 }

@@ -34,8 +34,6 @@ def jobs(request):
     if org:
         jobs = Job.objects.filter(organization=org)
 
-    total_pages = (len(jobs) / settings.MAX_PAGES)
-
     if search:
         jobs = jobs.filter(Q(command__contains=search) |
                            Q(description__contains=search) |
@@ -43,6 +41,8 @@ def jobs(request):
                            Q(parameters__contains=search) |
                            Q(action__contains=search) |
                            Q(pk__contains=search))
+
+    total_pages = (len(jobs) / settings.MAX_PAGES)
 
     jobs = paginate_objects(jobs, items_per_page, page)
 
