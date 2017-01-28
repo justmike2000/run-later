@@ -25,7 +25,8 @@ def jobs(request):
     if not org:
         return render(request, 'dashboard.htm', {})
 
-    return render(request, 'jobs.htm', {'search_term': search,
+    return render(request, 'jobs.htm', {'model': 'jobs',
+                                        'search_term': search,
                                         'max_pages': settings.MAX_PAGES,
                                         'current_page': page})
 

@@ -18,6 +18,13 @@ function load_jobs(params, current_page) {
 
             $("#total_pages").val(total_pages);
 
+            if(total_pages == current_page) {
+                $("#next-link").hide();
+            }
+            else {
+                $("#next-link").show();
+            }
+
             for (i = 1; i <= total_pages; i++) {
                 if(i == current_page) {
                     $("#page_selector").append("<option value=" + i + " selected>" + i + "</option>");

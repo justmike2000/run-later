@@ -3,3 +3,14 @@
 
 <select id="page_selector">
 </select> of <input type="text" class="no_border"id="total_pages" READONLY/>
+
+<div class="next_right">
+    {% if current_page >= 2 %}
+        <a href="/dashboard/{{ model }}/?search={{ search_term }}&page={{ current_page|add:-1 }}">< Prev</a>
+    {% endif %}
+    <a id="next-link" href="/dashboard/{{ model }}/?search={{ search_term }}&page={{ current_page|add:1 }}">Next ></a>
+</div>
+
+<script>
+    $("#next-link").hide();
+</script>
