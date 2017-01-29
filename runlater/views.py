@@ -33,14 +33,42 @@ def jobs(request):
 
 
 @login_required(login_url="/login_user/")
-def job_details(request, num):
-
+def job_detail(request, num):
     try:
         job = Job.objects.get(pk=num)
     except Job.DoesNotExist:
         return render(request, 'error.htm', {"message": "Job does not exist!"})
-
     return render(request, 'job_details.htm', {'job': job})
+
+
+def build_save_dict(request, field):
+    value = request.POST.get(field, None)
+    if value is not None:
+        return {field: value}
+    return {}
+
+
+@login_required(login_url="/login_user/")
+def job(request, num):
+    if request.method == "GET":
+        return job_detail(request, num)
+    elif request.method == "POST":
+        update_dict = {}
+        update_dict.update(build_save_dict(request, 'command'))
+        update_dict.update(build_save_dict(request, 'path'))
+        update_dict.update(build_save_dict(request, 'parameters'))
+        print update_dict
+        Job.objects.filter(pk=num).update(**update_dict)
+        return job_detail(request, num)
+    elif request.method == "DELETE":
+        try:
+            Job.objects.get(pk=num).delete()
+        except Job.DoesNotExist:
+            pass
+        return HttpResponseRedirect("/dashboard/jobs/")
+    else:
+        return render(request, 'error.htm', {"message": "Method not allowed."}, status=405)
+
 
 
 @login_required(login_url="/login_user/")

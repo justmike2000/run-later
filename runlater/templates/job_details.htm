@@ -15,27 +15,27 @@
     Job ID {{ job.pk }} - Created At: {{ job.created_at }}<br/>
     <br/>
 
-    <select name="job_action">
+    <select name="action">
         <option id="job_action_0" value=0>SSH</option>
         <option id="job_action_1" value=1>HTTP</option>
         <option id="job_action_2" value=2>AGENT</option>
     </select>
 
     <script>
-        $("#job_action_{{ job.action }}").attr("selected", "selected");
+        $("#action_{{ job.action }}").attr("selected", "selected");
     </script>
 
     <br/><br/>
 
 
     Command<br/>
-    <textarea>{{ job.command }}</textarea><br/><br/>
+    <textarea name="command">{{ job.command }}</textarea><br/><br/>
 
     Parameters<br/>
-    <textarea>{{ job.parameters }}</textarea><br/><br/>
+    <textarea name="parameters">{{ job.parameters }}</textarea><br/><br/>
 
     Path<br/>
-    <textarea>{{ job.path }}</textarea>
+    <textarea name="path">{{ job.path }}</textarea>
 
 </form>
 
