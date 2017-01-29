@@ -41,7 +41,18 @@
 
 <script>
     $("#delete_job").click(function() {
-        window.location.href = '/dashboard/jobs/{{ job.pk }}/';
+        if (confirm("Delete?")) {
+            $.ajax({
+                url: '/dashboard/jobs/{{ job.pk }}/',
+                type: 'DELETE',
+                headers: {'X-CSRFToken': getCookie('csrftoken')},
+                data: {'csrfmiddlewaretoken': getCookie('csrftoken')},
+                success: function (result) {
+                    alert("Success!");
+                    window.location.href = "/dashboard/jobs/";
+                }
+            });
+        }
     });
 </script>
 

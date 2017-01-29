@@ -22,9 +22,7 @@
     <script>
 
         $(document).ready(function(){
-            $.getScript("/static/utils.js", function(){
-                load_jobs({'search': '{{ search_term }}', 'page': {{ current_page }}}, {{ current_page }});
-            });
+            load_jobs({'search': '{{ search_term }}', 'page': {{ current_page }}}, {{ current_page }});
 
             $("#page_selector").change(function(val) {
                 window.location = '/dashboard/jobs/?page=' + val.currentTarget.value + "&search={{ search_term }}";
