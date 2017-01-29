@@ -6,6 +6,9 @@ from django.core import serializers
 from django.conf import settings
 from django.db.models import Q
 
+import math
+import decimal
+
 from runlater.utils import paginate_objects
 from accounts.models import Account
 from jobs.models import Job
@@ -49,7 +52,7 @@ def jobs(request):
                                Q(parameters__contains=search) |
                                Q(pk__contains=search))
 
-    total_pages = (len(jobs) / settings.MAX_PAGES)
+    total_pages = math.ceil(decimal.Decimal(len(jobs) / float(settings.MAX_PAGES)))
 
     jobs = paginate_objects(jobs, items_per_page, page)
 

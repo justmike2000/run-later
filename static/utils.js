@@ -2,7 +2,7 @@
 function load_jobs(params, current_page) {
     jQuery.support.cors = true;
 
-    $(".dim_screen").show();
+    $(".load_screen").show();
 
     $("#jobs").innerHTML = "";
 
@@ -16,9 +16,9 @@ function load_jobs(params, current_page) {
         cache: false,
         success: function (data, status, xhr) {
 
-            $(".dim_screen").hide();
+            $(".load_screen").hide();
 
-            total_pages = parseInt(xhr.getResponseHeader('total_pages')) + 1;
+            total_pages = parseInt(xhr.getResponseHeader('total_pages'));
 
             $("#total_pages").val(total_pages);
 
