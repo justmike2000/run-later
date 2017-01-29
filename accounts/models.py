@@ -13,6 +13,7 @@ class Account(models.Model):
 
 class Organization(models.Model):
     description = models.CharField(max_length=255)
+    allowed_ips = models.CharField(max_length=255)
 
     def __unicode__(self):
         return "{} - {}".format(self.id, self.description)
