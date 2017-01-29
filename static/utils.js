@@ -44,16 +44,19 @@ function load_jobs(params, current_page) {
 
             var trHTML = '';
 
+
             $.each(data, function (i, item) {
-                trHTML += '<tr id="jobs_item_' + item.pk + '" onclick="job_details(' + item.pk + ');">' ;
+                edit_link = ' onclick="job_details(' + item.pk + ');" '
+
+                trHTML += '<tr id="jobs_item_' + item.pk + '">';
                 trHTML += '<td>' + '<input type="checkbox" class="view_checkbox" id=job_' + item.pk  + '/>';
-                trHTML += '<td>' + item.pk;
-                trHTML += '<td>' + action_mapper[item.fields.action];
-                trHTML += '<td>' + item.fields.command;
-                trHTML += '<td>' + item.fields.created_at;
-                trHTML += '<td>' + item.fields.description;
-                trHTML += '<td>' + item.fields.path;
-                trHTML += '<td>' + item.fields.parameters;
+                trHTML += '<td ' + edit_link + '>' + item.pk;
+                trHTML += '<td ' + edit_link + '>' + action_mapper[item.fields.action];
+                trHTML += '<td ' + edit_link + '>' + item.fields.command;
+                trHTML += '<td ' + edit_link + '>' + item.fields.created_at;
+                trHTML += '<td ' + edit_link + '>' + item.fields.description;
+                trHTML += '<td ' + edit_link + '>' + item.fields.path;
+                trHTML += '<td ' + edit_link + '>' + item.fields.parameters;
                 trHTML += '</tr>' ;
             });
 
