@@ -1,6 +1,9 @@
 
-<button id="add_{{ model }}">Add</button>
-<button id="delete_{{ model }}">Delete</button>
+{% if model == "jobs" %}
+    <button id="add_{{ model }}">Add</button>
+    <button id="delete_{{ model }}">Delete</button>
+{% endif %}
+
 Search: <input type="text" id="search" value="{{ search_term }}">
 
 <select id="page_selector">

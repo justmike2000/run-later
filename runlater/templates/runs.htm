@@ -1,0 +1,43 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% include "toolbar.htm" %}
+
+    <table cellpadding="10px;" border="0" id="runs" border='1'>
+        <thead>
+            <th>ID</th>
+            <th>DESCRIPTION</th>
+            <th>ACTION</th>
+            <th>DESCRIPTION</th>
+            <th>PARAMETERS</th>
+            <th>RESULT</th>
+            <th>PATH</th>
+            <th>USERNAME</th>
+            <th>CREATED AT</th>
+            <th>RETURN CODE</th>
+        </thead>
+    </table>
+
+    <script>
+
+        $(document).ready(function(){
+            load_runs({'search': '{{ search_term }}', 'page': {{ current_page }}}, {{ current_page }});
+
+            $("#page_selector").change(function(val) {
+                window.location = '/dashboard/runs/?page=' + val.currentTarget.value + "&search={{ search_term }}";
+            });
+            $("#search").change(function(val) {
+                window.location = '/dashboard/runs/?search=' + val.currentTarget.value + "#search";
+            });
+
+            $("#select_all").click(function() {
+                $(".view_checkbox").prop('checked', $(this).prop('checked'));
+            });
+        });
+
+    </script>
+
+
+{% endblock %}

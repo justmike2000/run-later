@@ -69,6 +69,66 @@ function load_jobs(params, current_page) {
     });
 }
 
+function load_runs(params, current_page) {
+    jQuery.support.cors = true;
+
+    $(".load_screen").show();
+
+    $("#runs").innerHTML = "";
+
+    $.ajax(
+    {
+        type: "GET",
+        url: "/api/runs/",
+        data: params,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        cache: false,
+        success: function (data, status, xhr) {
+
+            $(".load_screen").hide();
+
+            total_pages = parseInt(xhr.getResponseHeader('total_pages'));
+
+            $("#total_pages").val(total_pages);
+
+            if(total_pages == current_page) {
+                $("#next-link").hide();
+            }
+            else {
+                $("#next-link").show();
+            }
+
+            for (i = 1; i <= total_pages; i++) {
+                if(i == current_page) {
+                    $("#page_selector").append("<option value=" + i + " selected>" + i + "</option>");
+                }
+                else {
+                    $("#page_selector").append("<option value=" + i + ">" + i + "</option>");
+                }
+            }
+
+            var trHTML = '';
+
+
+            $.each(data, function (i, item) {
+                edit_link = ' onclick="run_details(' + item.pk + ');" '
+
+                trHTML += '<tr id="runs_item_' + item.pk + '">';
+                trHTML += '<td ' + edit_link + '>' + item.pk;
+                trHTML += '<td ' + edit_link + '>' + item.fields.command;
+                trHTML += '</tr>' ;
+            });
+
+            $('#jobs').append(trHTML);
+        },
+
+        error: function (msg) {
+            alert(msg.responseText);
+        }
+    });
+}
+
 function delete_jobs_silent(job_id) {
         $.ajax({
             url: '/dashboard/jobs/' + job_id + '/',

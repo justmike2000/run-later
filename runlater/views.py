@@ -15,6 +15,26 @@ def index(request):
 
 
 @login_required(login_url="/login_user/")
+def runs(request):
+    org = Account.objects.get(user=request.user).organization
+
+    if request.method == "POST":
+        page = int(request.POST.get('page', 1))
+        search = request.POST.get('search', '')
+    else:
+        page = int(request.GET.get('page', 1))
+        search = request.GET.get('search', '')
+
+    if not org:
+        return render(request, 'dashboard.htm', {})
+
+    return render(request, 'runs.htm', {'model': 'runs',
+                                        'search_term': search,
+                                        'max_pages': settings.MAX_PAGES,
+                                        'current_page': page})
+
+
+@login_required(login_url="/login_user/")
 def jobs(request):
     org = Account.objects.get(user=request.user).organization
 
