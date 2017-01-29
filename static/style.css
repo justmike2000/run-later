@@ -163,3 +163,8 @@ hr {
 .output {
     color: #222222;
 }
+
+textarea {
+    width: 300px;
+    height: 150px;
+}
