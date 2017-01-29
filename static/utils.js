@@ -49,7 +49,7 @@ function load_jobs(params, current_page) {
                 edit_link = ' onclick="job_details(' + item.pk + ');" '
 
                 trHTML += '<tr id="jobs_item_' + item.pk + '">';
-                trHTML += '<td>' + '<input type="checkbox" class="view_checkbox" id=job_' + item.pk  + '/>';
+                trHTML += '<td>' + '<input type="checkbox" class="view_checkbox" id="jobs_' + item.pk  + '">';
                 trHTML += '<td ' + edit_link + '>' + item.pk;
                 trHTML += '<td ' + edit_link + '>' + action_mapper[item.fields.action];
                 trHTML += '<td ' + edit_link + '>' + item.fields.command;

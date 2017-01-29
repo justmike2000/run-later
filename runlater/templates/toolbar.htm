@@ -27,7 +27,12 @@ Search: <input type="text" id="search" value="{{ search_term }}">
         }
     });
     $("#delete_{{ model }}").click(function () {
-        alert(1);
+        selected = [];
+        $('input[type=checkbox]').each(function () {
+            if (this.checked && $(this).attr('id') != 'select_all') {
+                selected.push($(this).attr('id').replace('{{ model }}_', ''));
+            }
+        });
     });
 
 </script>
