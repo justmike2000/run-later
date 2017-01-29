@@ -110,17 +110,27 @@ function load_runs(params, current_page) {
 
             var trHTML = '';
 
+            action_mapper = {'0': 'ssh',
+                '1': 'http',
+                '2': 'agent'}
 
             $.each(data, function (i, item) {
                 edit_link = ' onclick="run_details(' + item.pk + ');" '
 
                 trHTML += '<tr id="runs_item_' + item.pk + '">';
                 trHTML += '<td ' + edit_link + '>' + item.pk;
-                trHTML += '<td ' + edit_link + '>' + item.fields.command;
+                trHTML += '<td ' + edit_link + '>' + item.fields.description;
+                trHTML += '<td ' + edit_link + '>' + action_mapper[item.fields.action];
+                trHTML += '<td ' + edit_link + '>' + item.fields.parameters;
+                trHTML += '<td ' + edit_link + '><a class="output" href="output(' + item.pk + ')">' + item.fields.result.substring(0, 25) + '</a>';
+                trHTML += '<td ' + edit_link + '>' + item.fields.path;
+                trHTML += '<td ' + edit_link + '>' + item.fields.username;
+                trHTML += '<td ' + edit_link + '>' + item.fields.created_at;
+                trHTML += '<td ' + edit_link + '>' + item.fields.return_code;
                 trHTML += '</tr>' ;
             });
 
-            $('#jobs').append(trHTML);
+            $('#runs').append(trHTML);
         },
 
         error: function (msg) {

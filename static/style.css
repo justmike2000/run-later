@@ -159,3 +159,7 @@ td {
 hr {
     border: 1px solid #48669F;
 }
+
+.output {
+    color: #222222;
+}
