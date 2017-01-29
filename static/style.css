@@ -45,9 +45,11 @@ th {
 }
 
 .index_header {
+    vertical-align: top;
     background-color: #48669F;
     color: #DDDDDD;
     padding: 20px;
+    padding-top: 10px;
     height: 60px;
 }
 
@@ -81,6 +83,7 @@ th {
 
 .nav a{
     color: #48669F;
+    text-decoration: none;
 }
 
 .info_box {

@@ -1,6 +1,6 @@
 
-<button>Add</button>
-<button>Delete</button>
+<button id="add_{{ model }}">Add</button>
+<button id="delete_{{ model }}">Delete</button>
 Search: <input type="text" id="search" value="{{ search_term }}">
 
 <select id="page_selector">
@@ -20,5 +20,12 @@ Search: <input type="text" id="search" value="{{ search_term }}">
 <script>
     $(".dim_screen").hide();
     $("#next-link").hide();
+
+    $("#add_{{ model }}").click(function () {
+        alert(1);
+    });
+    $("#delete_{{ model }}").click(function () {
+        alert(1);
+    });
 </script>
 
