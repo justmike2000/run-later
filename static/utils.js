@@ -122,7 +122,7 @@ function load_runs(params, current_page) {
                 trHTML += '<td ' + edit_link + '>' + item.fields.description;
                 trHTML += '<td ' + edit_link + '>' + action_mapper[item.fields.action];
                 trHTML += '<td ' + edit_link + '>' + item.fields.parameters;
-                trHTML += '<td ' + edit_link + '><a class="output" href="output(' + item.pk + ')">' + item.fields.result.substring(0, 25) + '</a>';
+                trHTML += '<td ' + edit_link + '>' + item.fields.result.substring(0, 25);
                 trHTML += '<td ' + edit_link + '>' + item.fields.path;
                 trHTML += '<td ' + edit_link + '>' + item.fields.username;
                 trHTML += '<td ' + edit_link + '>' + item.fields.created_at;
