@@ -27,12 +27,15 @@ Search: <input type="text" id="search" value="{{ search_term }}">
         }
     });
     $("#delete_{{ model }}").click(function () {
-        selected = [];
-        $('input[type=checkbox]').each(function () {
-            if (this.checked && $(this).attr('id') != 'select_all') {
-                selected.push($(this).attr('id').replace('{{ model }}_', ''));
-            }
-        });
+        if(confirm("Delete selected?")) {
+            $('input[type=checkbox]').each(function () {
+                if (this.checked && $(this).attr('id') != 'select_all') {
+                    job_id = $(this).attr('id').replace('{{ model }}_', '');
+                    delete_{{ model }}_silent(job_id);
+                }
+            });
+            location.reload();
+        }
     });
 
 </script>

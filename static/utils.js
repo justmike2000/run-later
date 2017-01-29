@@ -69,6 +69,18 @@ function load_jobs(params, current_page) {
     });
 }
 
+function delete_jobs_silent(job_id) {
+        $.ajax({
+            url: '/dashboard/jobs/' + job_id + '/',
+            type: 'DELETE',
+            async: false,
+            headers: {'X-CSRFToken': getCookie('csrftoken')},
+            data: {'csrfmiddlewaretoken': getCookie('csrftoken')},
+            success: function (result) {
+            }
+        });
+}
+
 function job_details(job) {
     window.location.href = '/dashboard/jobs/' + job + '/';
 }
