@@ -55,6 +55,7 @@ def job(request, num):
     elif request.method == "POST":
         update_dict = {}
         update_dict.update(build_save_dict(request, 'command'))
+        update_dict.update(build_save_dict(request, 'action'))
         update_dict.update(build_save_dict(request, 'path'))
         update_dict.update(build_save_dict(request, 'parameters'))
         print update_dict
