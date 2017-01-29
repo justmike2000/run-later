@@ -118,7 +118,7 @@ function load_runs(params, current_page) {
                 edit_link = ' onclick="run_details(' + item.pk + ');" '
 
                 trHTML += '<tr id="runs_item_' + item.pk + '">';
-                trHTML += '<td ' + edit_link + '>' + item.pk;
+                trHTML += '<td ' + edit_link + '>' + item.fields.command;
                 trHTML += '<td ' + edit_link + '>' + item.fields.description;
                 trHTML += '<td ' + edit_link + '>' + action_mapper[item.fields.action];
                 trHTML += '<td ' + edit_link + '>' + item.fields.parameters;
