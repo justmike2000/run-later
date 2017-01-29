@@ -70,6 +70,15 @@ def job_detail(request, num):
     return render(request, 'job_details.htm', {'job': job})
 
 
+@login_required(login_url="/login_user/")
+def run_detail(request, num):
+    try:
+        run = Run.objects.get(pk=num)
+    except Run.DoesNotExist:
+        return render(request, 'error.htm', {"message": "Run does not exist!"})
+    return render(request, 'run_details.htm', {'run': run})
+
+
 def build_save_dict(request, field):
     value = request.POST.get(field, None)
     if value is not None:

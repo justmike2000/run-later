@@ -155,6 +155,10 @@ function job_details(job) {
     window.location.href = '/dashboard/jobs/' + job + '/';
 }
 
+function run_details(run) {
+    window.location.href = '/dashboard/runs/' + run + '/';
+}
+
 // using jQuery
 function getCookie(name) {
     var cookieValue = null;

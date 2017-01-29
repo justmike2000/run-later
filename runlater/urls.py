@@ -30,6 +30,7 @@ urlpatterns = [
 
     url(r'^dashboard/$', views.dashboard),
     url(r'^dashboard/runs/$', views.runs),
+    url(r'^dashboard/runs/(\d+)/', views.run_detail),
     url(r'^dashboard/jobs/$', views.jobs),
     url(r'^dashboard/jobs/add/', views.add_job),
     url(r'^dashboard/jobs/(\d+)/', views.job),
