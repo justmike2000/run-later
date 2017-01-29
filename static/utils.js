@@ -64,7 +64,6 @@ function load_jobs(params, current_page) {
         },
 
         error: function (msg) {
-
             alert(msg.responseText);
         }
     });
@@ -90,3 +89,4 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+

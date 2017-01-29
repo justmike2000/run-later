@@ -4,8 +4,10 @@ from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
+from datetime import datetime, timedelta
+
 from accounts.models import Account
-from jobs.models import Job
+from jobs.models import Job, Schedule, Run
 
 
 def index(request):
@@ -81,7 +83,14 @@ def job(request, num):
 
 @login_required(login_url="/login_user/")
 def dashboard(request):
-    return render(request, 'dashboard.htm', {})
+    queued = Schedule.objects.filter(status=0).count()
+    running = Schedule.objects.filter(status=1).count()
+    completed = Run.objects.all().count()
+    last_hour = Run.objects.filter(created_at__gte=datetime.utcnow() - timedelta(hours=1)).count()
+    return render(request, 'dashboard.htm', {'queued': queued,
+                                             'running': running,
+                                             'last_hour': last_hour,
+                                             'completed': completed})
 
 
 def login_user(request):

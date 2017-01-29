@@ -3,8 +3,16 @@
 
 {% block content %}
 
-    Welcome!  This is where some added verbage about general use will go. <br/><br/>
+<h1>Dashboard</h1>
 
-    <img width="800px" height="500px" src="/static/schedules.jpg"</img>
+<hr><br/>
+
+<h2>Jobs Queued: {{ queued }}</h2>
+
+<h2>Running Jobs: {{ running }}</h2>
+
+<h2>Jobs Run Last Hour: {{ last_hour }}</h2>
+
+<h2>Total Completed: {{ completed }}</h2>
 
 {% endblock %}
