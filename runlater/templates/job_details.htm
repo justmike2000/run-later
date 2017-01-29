@@ -3,16 +3,46 @@
 
 {% block content %}
 
-ID {{ job.pk }} <br/>
-Command {{ job.command }} <br/>
-Action {{ job.action_type }} <br/>
-Created At {{ job.created_at }} <br/>
-Parameters {{ job.parameters }} <br/>
-Path {{ job.path }} <br/>
-Credentials {{ job.credentials }} <br/>
+<form action="/dashboard/jobs/{{ job.pk }}/" method="POST">
 
-<br/>
+    <button id=job_save">Save</button> <button id="delete_job" type="button">Delete</button>
 
-<button>Save</button> <button>Delete</button>
+    {% csrf_token %}
+
+    <br/>
+    <br/>
+
+    Job ID {{ job.pk }} - Created At: {{ job.created_at }}<br/>
+    <br/>
+
+    <select name="job_action">
+        <option id="job_action_0" value=0>SSH</option>
+        <option id="job_action_1" value=1>HTTP</option>
+        <option id="job_action_2" value=2>AGENT</option>
+    </select>
+
+    <script>
+        $("#job_action_{{ job.action }}").attr("selected", "selected");
+    </script>
+
+    <br/><br/>
+
+
+    Command<br/>
+    <textarea>{{ job.command }}</textarea><br/><br/>
+
+    Parameters<br/>
+    <textarea>{{ job.parameters }}</textarea><br/><br/>
+
+    Path<br/>
+    <textarea>{{ job.path }}</textarea>
+
+</form>
+
+<script>
+    $("#delete_job").click(function() {
+        window.location.href = '/dashboard/jobs/{{ job.pk }}/';
+    });
+</script>
 
 {% endblock %}
