@@ -7,7 +7,7 @@
 
     <table cellpadding="10px;" border="0" id="jobs" border='1'>
         <thead>
-            <th><input type="checkbox" id="select_all/"></th>
+            <th><input type="checkbox" id="select_all"/></th>
             <th>ID</th>
             <th>TYPE</th>
             <th>COMMAND</th>
@@ -28,6 +28,10 @@
             });
             $("#search").change(function(val) {
                 window.location = '/dashboard/jobs/?search=' + val.currentTarget.value + "#search";
+            });
+
+            $("#select_all").click(function() {
+                $(".view_checkbox").prop('checked', $(this).prop('checked'));
             });
         });
 

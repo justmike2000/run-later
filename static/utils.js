@@ -46,7 +46,7 @@ function load_jobs(params, current_page) {
 
             $.each(data, function (i, item) {
                 trHTML += '<tr id="jobs_item_' + item.pk + '" onclick="job_details(' + item.pk + ');">' ;
-                trHTML += '<td>' + '<input type="checkbox" id=job_' + item.pk  + '/>';
+                trHTML += '<td>' + '<input type="checkbox" class="view_checkbox" id=job_' + item.pk  + '/>';
                 trHTML += '<td>' + item.pk;
                 trHTML += '<td>' + action_mapper[item.fields.action];
                 trHTML += '<td>' + item.fields.command;

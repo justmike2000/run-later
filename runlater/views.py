@@ -33,6 +33,13 @@ def jobs(request):
 
 
 @login_required(login_url="/login_user/")
+def add_job(request):
+    org = Account.objects.get(user=request.user).organization
+    job = Job.objects.create(organization=org)
+    return render(request, 'job_details.htm', {'job': job})
+
+
+@login_required(login_url="/login_user/")
 def job_detail(request, num):
     try:
         job = Job.objects.get(pk=num)
