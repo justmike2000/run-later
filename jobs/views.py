@@ -89,13 +89,21 @@ def runs(request):
         runs = Run.objects.filter(organization=org)
 
     if search:
-        runs = Run.objects.filter(Q(command__contains=search) |
-                                  Q(description__contains=search) |
-                                  Q(path__contains=search) |
-                                  Q(result__contains=search) |
-                                  Q(username__contains=search) |
-                                  Q(return_code__contains=search) |
-                                  Q(parameters__contains=search))
+        found = False
+        for action_choice in Job.ACTION_CHOICES:
+            if search.lower() in action_choice[1].lower():
+                runs = Run.objects.filter(action=int(action_choice[0]))
+                found = True
+                break
+
+        if not found:
+            runs = Run.objects.filter(Q(command__contains=search) |
+                                      Q(description__contains=search) |
+                                      Q(path__contains=search) |
+                                      Q(result__contains=search) |
+                                      Q(username__contains=search) |
+                                      Q(return_code__contains=search) |
+                                      Q(parameters__contains=search))
 
     total_pages = math.ceil(decimal.Decimal(len(runs) / float(settings.MAX_PAGES)))
 
