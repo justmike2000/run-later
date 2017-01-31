@@ -18,7 +18,7 @@ tr:nth-child(odd) {background: #FFF}
 }
 
 tr:hover {
-    background-color: #3DCB6B !important;
+    background-color: #3DCB6B;
     color: white;
     cursor: pointer;
 }
