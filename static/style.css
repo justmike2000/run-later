@@ -8,9 +8,12 @@ a {
     color: #DDDDDD;
 }
 
-
 tr:nth-child(even) {background: #CCC}
 tr:nth-child(odd) {background: #FFF}
+
+.highlight {
+    color: #E16E49 !important;
+}
 
 .highlight td {
     background-color: #E16E49;
@@ -80,15 +83,15 @@ th {
     position: fixed;
 }
 
+.nav a {
+    color: #48669F;
+    text-decoration: none;
+}
+
 .content {
     margin-left: 220px;
     margin-top: 20px;
     width: 80%;
-}
-
-.nav a{
-    color: #48669F;
-    text-decoration: none;
 }
 
 .info_box {
