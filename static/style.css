@@ -12,8 +12,13 @@ a {
 tr:nth-child(even) {background: #CCC}
 tr:nth-child(odd) {background: #FFF}
 
+.highlight td {
+    background-color: #E16E49;
+    color: white;
+}
+
 tr:hover {
-    background-color: #3DCB6B;
+    background-color: #3DCB6B !important;
     color: white;
     cursor: pointer;
 }
@@ -167,8 +172,4 @@ hr {
 textarea {
     width: 300px;
     height: 150px;
-}
-
-.highlight {
-    background-color: #b3ff56;
 }

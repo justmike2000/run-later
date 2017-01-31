@@ -65,7 +65,7 @@ function load_jobs(params, current_page) {
 
             $.each(data, function (i, item) {
                 $("#jobs_" + item.pk).click(function() {
-                    ele = $(this).closest("tr").find("td");
+                    ele = $(this).closest("tr");
                     if(!this.checked) {
                         ele.removeClass("highlight");
                     }
@@ -193,6 +193,7 @@ function getCookie(name) {
 
 $(document).ready(function() {
     $("#select_all").click(function () {
+        $(".view_checkbox").trigger( 'click', true );
         $(".view_checkbox").prop('checked', $(this).prop('checked'));
     });
 });
