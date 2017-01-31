@@ -58,9 +58,23 @@ function load_jobs(params, current_page) {
                 trHTML += '<td ' + edit_link + '>' + item.fields.path;
                 trHTML += '<td ' + edit_link + '>' + item.fields.parameters;
                 trHTML += '</tr>' ;
+
             });
 
             $('#jobs').append(trHTML);
+
+            $.each(data, function (i, item) {
+                $("#jobs_" + item.pk).click(function() {
+                    ele = $(this).closest("tr").find("td");
+                    if(!this.checked) {
+                        ele.removeClass("highlight");
+                    }
+                    else {
+                        ele.addClass("highlight");
+                    }
+                });
+            });
+
         },
 
         error: function (msg) {
@@ -176,3 +190,9 @@ function getCookie(name) {
     return cookieValue;
 }
 
+
+$(document).ready(function() {
+    $("#select_all").click(function () {
+        $(".view_checkbox").prop('checked', $(this).prop('checked'));
+    });
+});

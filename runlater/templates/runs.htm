@@ -30,10 +30,6 @@
             $("#search").change(function(val) {
                 window.location = '/dashboard/runs/?search=' + val.currentTarget.value + "#search";
             });
-
-            $("#select_all").click(function() {
-                $(".view_checkbox").prop('checked', $(this).prop('checked'));
-            });
         });
 
     </script>
